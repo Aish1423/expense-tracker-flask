@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Expense Tracker</title>
+
+    <!-- Tailwind CSS -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="min-h-screen relative text-white overflow-x-hidden bg-gray-950">
+
+    <!-- GLOBAL LOADER -->
+
+    <div id="loader" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 backdrop-blur-sm">
+
+        <div class="relative">
+
+            <!-- SPINNER -->
+
+            <div class="w-24 h-24 border-[6px] border-pink-500 border-t-transparent rounded-full animate-spin">
+
+            </div>
+
+            <!-- GLOW -->
+
+            <div class="absolute inset-0 bg-pink-500 blur-3xl opacity-20 rounded-full">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- GLOBAL TOAST -->
+
+    <div id="toast"
+        class="fixed top-5 right-5 translate-x-[150%] transition-all duration-500 bg-green-500 text-white px-6 py-4 rounded-2xl shadow-2xl text-lg md:text-xl font-bold z-50">
+
+    </div>
+
+    <!-- PAGE CONTENT -->
+
+    {% block content %}
+
+    {% endblock %}
+
+    <!-- GLOBAL JAVASCRIPT -->
+
+    <script>
+
+        // =========================
+        // SHOW LOADER
+        // =========================
+
+        function showLoader() {
+
+            const loader = document.getElementById("loader");
+
+            loader.classList.remove("hidden");
+
+            loader.classList.add("flex");
+
+        }
+
+        // =========================
+        // HIDE LOADER
+        // =========================
+
+        function hideLoader() {
+
+            const loader = document.getElementById("loader");
+
+            loader.classList.remove("flex");
+
+            loader.classList.add("hidden");
+
+        }
+
+        // =========================
+        // SHOW TOAST
+        // =========================
+
+        function showToast(message, color = "green") {
+
+            const toast = document.getElementById("toast");
+
+            // RESET COLORS
+
+            toast.classList.remove(
+                "bg-green-500",
+                "bg-red-500",
+                "bg-blue-500"
+            );
+
+            // APPLY COLOR
+
+            if (color === "red") {
+
+                toast.classList.add("bg-red-500");
+
+            }
+
+            else if (color === "blue") {
+
+                toast.classList.add("bg-blue-500");
+
+            }
+
+            else {
+
+                toast.classList.add("bg-green-500");
+
+            }
+
+            // SET MESSAGE
+
+            toast.innerText = message;
+
+            // SHOW TOAST
+
+            toast.classList.remove("translate-x-[150%]");
+
+            toast.classList.add("translate-x-0");
+
+            // HIDE AFTER 3 SEC
+
+            setTimeout(() => {
+
+                toast.classList.remove("translate-x-0");
+
+                toast.classList.add("translate-x-[150%]");
+
+            }, 3000);
+
+        }
+
+        // =========================
+        // NAVIGATION WITH LOADER
+        // =========================
+
+        function navigate(url) {
+
+            showLoader();
+
+            setTimeout(() => {
+
+                window.location.href = url;
+
+            }, 1200);
+
+        }
+
+        // =========================
+        // DELETE ACTION
+        // =========================
+
+        function deleteTransaction(id) {
+
+            showLoader();
+
+            setTimeout(() => {
+
+                hideLoader();
+
+                showToast(
+                    "Transaction Deleted Successfully 🗑️",
+                    "red"
+                );
+
+                setTimeout(() => {
+
+                    window.location.href = "/delete/" + id;
+
+                }, 1200);
+
+            }, 1500);
+
+        }
+
+    </script>
+
+</body>
+
+</html>

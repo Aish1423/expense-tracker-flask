@@ -1,0 +1,17 @@
+body {
+
+    font-family: 'Poppins', sans-serif;
+
+    background: linear-gradient(to right,
+            #0f172a,
+            #111827);
+
+}
+
+.card-hover:hover {
+
+    transform: translateY(-10px);
+
+    transition: 0.3s;
+
+}

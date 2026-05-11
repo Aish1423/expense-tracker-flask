@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Expense Tracker Dashboard</title>
+
+    <!-- Tailwind CSS -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="min-h-screen relative text-white overflow-x-hidden">
+
+    <!-- BACKGROUND -->
+
+    <div class="absolute inset-0 bg-gray-950"></div>
+
+    <!-- SOFT BLUR EFFECTS -->
+
+    <div class="absolute top-20 left-20 w-72 h-72 bg-pink-500 rounded-full blur-3xl opacity-20"></div>
+
+    <div class="absolute bottom-20 right-20 w-72 h-72 bg-blue-500 rounded-full blur-3xl opacity-20"></div>
+
+    <!-- MAIN CONTAINER -->
+
+    <div class="relative z-10 flex flex-col lg:flex-row min-h-screen">
+
+        <!-- SIDEBAR -->
+
+        <aside
+            class="w-full lg:w-72 backdrop-blur-xl bg-white/5 border-b lg:border-b-0 lg:border-r border-white/10 p-6 md:p-8">
+
+            <!-- LOGO -->
+
+            <h1 class="text-4xl font-bold text-pink-500 mb-12">
+
+                Expense Tracker 🚀
+
+            </h1>
+
+            <!-- NAVIGATION -->
+
+            <nav class="space-y-5">
+
+                <!-- DASHBOARD -->
+
+                <button onclick="navigate('/')"
+                    class="w-full bg-pink-700 hover:bg-pink-800 transition duration-300 px-6 py-4 rounded-2xl text-center font-semibold">
+
+                    Dashboard
+
+                </button>
+
+                <!-- ADD -->
+
+                <a href="/add"
+                    class="block bg-blue-500 hover:bg-blue-700 transition duration-300 p-4 rounded-2xl text-center font-semibold">
+
+                    Add Transaction
+
+                </a>
+
+                <!-- REPORT -->
+
+                <a href="/report"
+                    class="block bg-green-500 hover:bg-green-700 transition duration-300 p-4 rounded-2xl text-center font-semibold">
+
+                    Reports
+
+                </a>
+
+                <!-- HISTORY -->
+
+                <a href="/history"
+                    class="block bg-yellow-500 hover:bg-yellow-700 transition duration-300 p-4 rounded-2xl text-center font-semibold text-black">
+
+                    History
+
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <!-- MAIN CONTENT -->
+
+        <main class="flex-1 p-4 sm:p-6 md:p-10 overflow-x-hidden">
+
+            <!-- PAGE TITLE -->
+
+            <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold mb-8 md:mb-12">
+
+                Dashboard
+
+            </h1>
+
+            <!-- CARDS -->
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
+
+                <!-- INCOME -->
+
+                <div
+                    class="backdrop-blur-xl bg-white/5 border border-white/10 shadow-2xl rounded-[30px] p-6 md:p-8 hover:scale-105 transition duration-300">
+
+                    <h2 class="text-2xl font-bold text-green-400">
+
+                        Total Income
+
+                    </h2>
+
+                    <p class="text-3xl sm:text-4xl md:text-5xl mt-6 font-bold">
+
+                        ₹ {{ income }}
+
+                    </p>
+
+                </div>
+
+                <!-- EXPENSE -->
+
+                <div
+                    class="backdrop-blur-xl bg-white/5 border border-white/10 shadow-2xl rounded-[30px] p-6 md:p-8 hover:scale-105 transition duration-300">
+
+                    <h2 class="text-2xl font-bold text-red-400">
+
+                        Total Expense
+
+                    </h2>
+
+                    <p class="text-3xl sm:text-4xl md:text-5xl mt-6 font-bold">
+
+                        ₹ {{ expense }}
+
+                    </p>
+
+                </div>
+
+                <!-- BALANCE -->
+
+                <div
+                    class="backdrop-blur-xl bg-white/5 border border-white/10 shadow-2xl rounded-[30px] p-6 md:p-8 hover:scale-105 transition duration-300">
+
+                    <h2 class="text-2xl font-bold text-blue-400">
+
+                        Balance
+
+                    </h2>
+
+                    <p class="text-3xl sm:text-4xl md:text-5xl mt-6 font-bold">
+
+                        ₹ {{ income - expense }}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- RECENT TRANSACTIONS -->
+
+            <div class="mt-14">
+
+                <h2 class="text-3xl font-bold mb-8">
+
+                    Recent Transactions
+
+                </h2>
+
+                <!-- TABLE -->
+
+                <div
+                    class="backdrop-blur-xl bg-white/5 border border-white/10 shadow-2xl rounded-[30px] overflow-hidden">
+
+                    <div class="overflow-x-auto w-full">
+
+                        <table class="w-full min-w-[600px] md:min-w-[700px]">
+
+                            <!-- HEAD -->
+
+                            <thead class="bg-white/10">
+
+                                <tr>
+
+                                    <th class="p-5 text-left">
+                                        Date
+                                    </th>
+
+                                    <th class="p-5 text-left">
+                                        Category
+                                    </th>
+
+                                    <th class="p-5 text-left">
+                                        Amount
+                                    </th>
+
+                                    <th class="p-5 text-left">
+                                        Type
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <!-- BODY -->
+
+                            <tbody>
+
+                                {% for t in transactions %}
+
+                                <tr class="border-b border-white/10 hover:bg-white/5 transition duration-300">
+
+                                    <td class="p-5">
+                                        {{ t.date }}
+                                    </td>
+
+                                    <td class="p-5">
+                                        {{ t.category }}
+                                    </td>
+
+                                    <td class="p-5">
+                                        ₹ {{ t.amount }}
+                                    </td>
+
+                                    <td class="p-5">
+
+                                        {% if t.type == "income" %}
+
+                                        <span class="text-green-400 font-bold">
+
+                                            Income
+
+                                        </span>
+
+                                        {% else %}
+
+                                        <span class="text-red-400 font-bold">
+
+                                            Expense
+
+                                        </span>
+
+                                        {% endif %}
+
+                                    </td>
+
+                                </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>
