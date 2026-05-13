@@ -1,40 +1,294 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
+{% block content %}
 
-    <meta charset="UTF-8">
+<!-- MAIN CONTAINER -->
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="min-h-screen relative overflow-hidden bg-gray-950 text-white">
 
-    <title>Expense Tracker Dashboard</title>
-
-    <!-- Tailwind CSS -->
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-</head>
-
-<body class="min-h-screen relative text-white overflow-x-hidden">
-
-    <!-- BACKGROUND -->
+    <!-- BACKGROUND EFFECTS -->
 
     <div class="absolute inset-0 bg-gray-950"></div>
 
-    <!-- SOFT BLUR EFFECTS -->
+    <div class="absolute top-0 left-0 w-[400px] h-[400px] bg-pink-500 opacity-20 blur-3xl rounded-full">
+    </div>
 
-    <div class="absolute top-20 left-20 w-72 h-72 bg-pink-500 rounded-full blur-3xl opacity-20"></div>
+    <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-blue-500 opacity-20 blur-3xl rounded-full">
+    </div>
 
-    <div class="absolute bottom-20 right-20 w-72 h-72 bg-blue-500 rounded-full blur-3xl opacity-20"></div>
+    <!-- ========================= -->
+    <!-- GUEST LANDING PAGE -->
+    <!-- ========================= -->
 
-    <!-- MAIN CONTAINER -->
+    {% if not logged_in %}
 
-    <div class="relative z-10 flex flex-col lg:flex-row min-h-screen">
+    <!-- NAVBAR -->
+
+    <nav class="relative z-20 flex items-center justify-between px-6 md:px-12 py-6">
+
+        <!-- LOGO -->
+
+        <div class="flex items-center gap-3">
+
+            <div
+                class="w-12 h-12 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center text-2xl shadow-2xl">
+
+                💳
+
+            </div>
+
+            <h1 class="text-2xl md:text-3xl font-bold">
+
+                Expense Tracker
+
+            </h1>
+
+        </div>
+
+        <!-- BUTTONS -->
+
+        <div class="flex items-center gap-4">
+
+            <button type="button" onclick="navigate('/login')"
+                class="hidden sm:block border border-pink-500 hover:bg-pink-500 transition duration-300 px-6 py-3 rounded-2xl font-semibold">
+
+                Login
+
+            </button>
+
+        </div>
+
+    </nav>
+
+    <!-- HERO SECTION -->
+
+    <section class="relative z-10 min-h-screen flex items-center px-6 md:px-12 py-10">
+
+        <!-- HERO CONTAINER -->
+
+        <div class="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+            <!-- ========================= -->
+            <!-- LEFT CONTENT -->
+            <!-- ========================= -->
+
+            <div class="text-center lg:text-left">
+
+                <!-- BADGE -->
+
+                <div
+                    class="inline-flex items-center gap-3 border border-pink-500/30 bg-white/5 px-5 py-3 rounded-full text-pink-300 backdrop-blur-xl mb-8">
+
+                    ✨ Smart • Secure • Analytics Powered
+
+                </div>
+
+                <!-- TITLE -->
+
+                <h1 class="text-4xl sm:text-5xl md:text-7xl xl:text-8xl font-extrabold">
+
+                    Manage
+
+                    <span class="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+
+                        Expenses
+
+                    </span>
+
+                    🚀
+
+                </h1>
+
+                <!-- DESCRIPTION -->
+
+                <p class="text-gray-300 text-lg sm:text-xl md:text-2xl mt-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+
+                    Track income, expenses, savings and analytics
+                    with a modern smart financial dashboard.
+
+                </p>
+
+                <!-- BUTTONS -->
+
+                <div class="mt-10 flex flex-col sm:flex-row items-center lg:items-start gap-5">
+
+                    <!-- GET STARTED -->
+
+                    <button type="button" onclick="navigate('/signup')"
+                        class="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-pink-500 hover:scale-105 transition duration-300 px-10 py-5 rounded-2xl text-lg md:text-xl font-bold shadow-2xl">
+
+                        🚀 Get Started
+
+                    </button>
+
+                    <!-- LOGIN -->
+
+                    <button type="button" onclick="navigate('/login')"
+                        class="w-full sm:w-auto border border-pink-500 hover:bg-pink-500 transition duration-300 px-10 py-5 rounded-2xl text-lg md:text-xl font-bold">
+
+                        🔐 Login
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- ========================= -->
+            <!-- RIGHT ANALYTICS CARD -->
+            <!-- ========================= -->
+
+            <div class="flex justify-center">
+
+                <div
+                    class="w-full max-w-xl backdrop-blur-xl bg-white/5 border border-white/10 rounded-[35px] p-6 shadow-2xl">
+
+                    <!-- TOP -->
+
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-5 mb-8">
+
+                        <div>
+
+                            <h2 class="text-3xl sm:text-4xl font-bold">
+
+                                Smart Analytics 📊
+
+                            </h2>
+
+                            <p class="text-gray-400 mt-2">
+
+                                Financial growth tracking
+
+                            </p>
+
+                        </div>
+
+                        <!-- STATUS -->
+
+                        <div class="bg-green-500/20 text-green-400 px-5 py-3 rounded-2xl font-bold text-center">
+
+                            +18% Growth
+
+                        </div>
+
+                    </div>
+
+                    <!-- GRAPH -->
+
+                    <div class="bg-white/5 border border-white/10 rounded-3xl p-5">
+
+                        <div class="h-64 flex items-end gap-2 sm:gap-4 overflow-x-auto">
+
+                            <!-- BAR -->
+
+                            <div class="w-full">
+
+                                <div
+                                    class="bg-gradient-to-t from-pink-500 to-purple-500 rounded-t-3xl h-20 hover:h-24 transition-all duration-300">
+
+                                </div>
+
+                                <p class="text-center mt-3 text-gray-400">
+
+                                    Jan
+
+                                </p>
+
+                            </div>
+
+                            <!-- BAR -->
+
+                            <div class="w-full">
+
+                                <div
+                                    class="bg-gradient-to-t from-blue-500 to-cyan-500 rounded-t-3xl h-40 hover:h-44 transition-all duration-300">
+
+                                </div>
+
+                                <p class="text-center mt-3 text-gray-400">
+
+                                    Feb
+
+                                </p>
+
+                            </div>
+
+                            <!-- BAR -->
+
+                            <div class="w-full">
+
+                                <div
+                                    class="bg-gradient-to-t from-green-500 to-emerald-500 rounded-t-3xl h-28 hover:h-32 transition-all duration-300">
+
+                                </div>
+
+                                <p class="text-center mt-3 text-gray-400">
+
+                                    Mar
+
+                                </p>
+
+                            </div>
+
+                            <!-- BAR -->
+
+                            <div class="w-full">
+
+                                <div
+                                    class="bg-gradient-to-t from-yellow-500 to-orange-500 rounded-t-3xl h-48 hover:h-52 transition-all duration-300">
+
+                                </div>
+
+                                <p class="text-center mt-3 text-gray-400">
+
+                                    Apr
+
+                                </p>
+
+                            </div>
+
+                            <!-- BAR -->
+
+                            <div class="w-full">
+
+                                <div
+                                    class="bg-gradient-to-t from-red-500 to-pink-500 rounded-t-3xl h-36 hover:h-40 transition-all duration-300">
+
+                                </div>
+
+                                <p class="text-center mt-3 text-gray-400">
+
+                                    May
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    {% endif %}
+
+    <!-- ========================= -->
+    <!-- LOGGED IN DASHBOARD -->
+    <!-- ========================= -->
+
+    {% if logged_in %}
+
+    <div class="flex flex-col lg:flex-row min-h-screen relative z-10">
 
         <!-- SIDEBAR -->
 
-        <aside
-            class="w-full lg:w-72 backdrop-blur-xl bg-white/5 border-b lg:border-b-0 lg:border-r border-white/10 p-6 md:p-8">
+        <aside class="w-full lg:w-80 backdrop-blur-xl bg-white/5 border-b lg:border-r border-white/10 p-6 md:p-8">
 
             <!-- LOGO -->
 
@@ -44,45 +298,78 @@
 
             </h1>
 
+            <!-- USER CARD -->
+
+            <div class="bg-white/5 border border-white/10 rounded-3xl p-6 mb-10 backdrop-blur-xl">
+
+                <div class="flex items-center gap-4">
+
+                    <div
+                        class="w-16 h-16 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 flex items-center justify-center text-2xl font-bold">
+
+                        👤
+
+                    </div>
+
+                    <div>
+
+                        <h2 class="text-xl font-bold">
+
+                            Welcome Back
+
+                        </h2>
+
+                        <p class="text-gray-400">
+
+                            {{ username }}
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
             <!-- NAVIGATION -->
 
             <nav class="space-y-5">
 
-                <!-- DASHBOARD -->
+                <!-- ADD -->
 
-                <button onclick="navigate('/')"
-                    class="w-full bg-pink-700 hover:bg-pink-800 transition duration-300 px-6 py-4 rounded-2xl text-center font-semibold">
+                <button type="button" onclick="navigate('/add')"
+                    class="w-full bg-blue-500 hover:bg-blue-700 p-3 sm:p-4 rounded-2xl text-base sm:text-lg font-semibold transition duration-300 shadow-xl hover:scale-105">
 
-                    Dashboard
+                    💰 Add Transaction
 
                 </button>
 
-                <!-- ADD -->
-
-                <a href="/add"
-                    class="block bg-blue-500 hover:bg-blue-700 transition duration-300 p-4 rounded-2xl text-center font-semibold">
-
-                    Add Transaction
-
-                </a>
-
                 <!-- REPORT -->
 
-                <a href="/report"
-                    class="block bg-green-500 hover:bg-green-700 transition duration-300 p-4 rounded-2xl text-center font-semibold">
+                <button type="button" onclick="navigate('/report')"
+                    class="w-full bg-green-500 hover:bg-green-700 p-4 rounded-2xl text-lg font-semibold transition duration-300 shadow-xl hover:scale-105">
 
-                    Reports
+                    📊 Reports
 
-                </a>
+                </button>
 
                 <!-- HISTORY -->
 
-                <a href="/history"
-                    class="block bg-yellow-500 hover:bg-yellow-700 transition duration-300 p-4 rounded-2xl text-center font-semibold text-black">
+                <button type="button" onclick="navigate('/history')"
+                    class="w-full bg-yellow-500 hover:bg-yellow-600 text-black p-4 rounded-2xl text-lg font-semibold transition duration-300 shadow-xl hover:scale-105">
 
-                    History
+                    🕘 History
 
-                </a>
+                </button>
+
+                <!-- LOGOUT -->
+
+                <button type="button" onclick="navigate('/logout')"
+                    class="w-full bg-red-500 hover:bg-red-700 p-4 rounded-2xl text-lg font-semibold transition duration-300 shadow-xl hover:scale-105">
+
+                    🚪 Logout
+
+                </button>
 
             </nav>
 
@@ -90,32 +377,59 @@
 
         <!-- MAIN CONTENT -->
 
-        <main class="flex-1 p-4 sm:p-6 md:p-10 overflow-x-hidden">
+        <main class="flex-1 p-6 md:p-10 overflow-x-hidden">
 
-            <!-- PAGE TITLE -->
+            <!-- TITLE -->
 
-            <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold mb-8 md:mb-12">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-10">
 
-                Dashboard
+                <div>
 
-            </h1>
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold">
 
-            <!-- CARDS -->
+                        Dashboard 📊
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
+                    </h1>
+
+                    <p class="text-gray-400 mt-4 text-lg">
+
+                        Monitor your financial activities in real time.
+
+                    </p>
+
+                </div>
+
+                <!-- QUICK ACTION -->
+
+                <button type="button" onclick="navigate('/add')"
+                    class="bg-gradient-to-r from-blue-500 to-pink-500 px-8 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition duration-300 shadow-2xl">
+
+                    + Quick Add
+
+                </button>
+
+            </div>
+
+            <!-- STAT CARDS -->
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
 
                 <!-- INCOME -->
 
                 <div
-                    class="backdrop-blur-xl bg-white/5 border border-white/10 shadow-2xl rounded-[30px] p-6 md:p-8 hover:scale-105 transition duration-300">
+                    class="bg-white/5 border border-white/10 rounded-[35px] p-8 backdrop-blur-xl hover:scale-105 transition duration-300 shadow-2xl">
 
-                    <h2 class="text-2xl font-bold text-green-400">
+                    <div class="flex items-center justify-between">
 
-                        Total Income
+                        <h2 class="text-2xl font-bold text-green-400">
 
-                    </h2>
+                            Total Income 💵
 
-                    <p class="text-3xl sm:text-4xl md:text-5xl mt-6 font-bold">
+                        </h2>
+
+                    </div>
+
+                    <p class="text-3xl sm:text-4xl md:text-5xl font-bold mt-8 break-words">
 
                         ₹ {{ income }}
 
@@ -126,15 +440,19 @@
                 <!-- EXPENSE -->
 
                 <div
-                    class="backdrop-blur-xl bg-white/5 border border-white/10 shadow-2xl rounded-[30px] p-6 md:p-8 hover:scale-105 transition duration-300">
+                    class="bg-white/5 border border-white/10 rounded-[35px] p-8 backdrop-blur-xl hover:scale-105 transition duration-300 shadow-2xl">
 
-                    <h2 class="text-2xl font-bold text-red-400">
+                    <div class="flex items-center justify-between">
 
-                        Total Expense
+                        <h2 class="text-2xl font-bold text-red-400">
 
-                    </h2>
+                            Total Expense 💸
 
-                    <p class="text-3xl sm:text-4xl md:text-5xl mt-6 font-bold">
+                        </h2>
+
+                    </div>
+
+                    <p class="text-5xl font-bold mt-8 break-words">
 
                         ₹ {{ expense }}
 
@@ -142,20 +460,24 @@
 
                 </div>
 
-                <!-- BALANCE -->
+                <!-- SAVINGS -->
 
                 <div
-                    class="backdrop-blur-xl bg-white/5 border border-white/10 shadow-2xl rounded-[30px] p-6 md:p-8 hover:scale-105 transition duration-300">
+                    class="bg-white/5 border border-white/10 rounded-[35px] p-8 backdrop-blur-xl hover:scale-105 transition duration-300 shadow-2xl">
 
-                    <h2 class="text-2xl font-bold text-blue-400">
+                    <div class="flex items-center justify-between">
 
-                        Balance
+                        <h2 class="text-2xl font-bold text-blue-400">
 
-                    </h2>
+                            Savings 🏦
 
-                    <p class="text-3xl sm:text-4xl md:text-5xl mt-6 font-bold">
+                        </h2>
 
-                        ₹ {{ income - expense }}
+                    </div>
+
+                    <p class="text-5xl font-bold mt-8 break-words">
+
+                        ₹ {{ savings }}
 
                     </p>
 
@@ -167,98 +489,87 @@
 
             <div class="mt-14">
 
-                <h2 class="text-3xl font-bold mb-8">
+                <div class="flex items-center justify-between mb-6">
 
-                    Recent Transactions
+                    <h2 class="text-3xl font-bold">
 
-                </h2>
+                        Recent Activity 🧾
 
-                <!-- TABLE -->
+                    </h2>
 
-                <div
-                    class="backdrop-blur-xl bg-white/5 border border-white/10 shadow-2xl rounded-[30px] overflow-hidden">
+                    <!-- VIEW ALL -->
 
-                    <div class="overflow-x-auto w-full">
+                    <button type="button" onclick="navigate('/history')"
+                        class="bg-white/10 hover:bg-white/20 px-5 py-3 rounded-2xl transition duration-300">
 
-                        <table class="w-full min-w-[600px] md:min-w-[700px]">
+                        View All →
 
-                            <!-- HEAD -->
+                    </button>
 
-                            <thead class="bg-white/10">
+                </div>
 
-                                <tr>
+                <!-- MINI TRANSACTION LIST -->
 
-                                    <th class="p-5 text-left">
-                                        Date
-                                    </th>
+                <div class="bg-white/5 border border-white/10 rounded-[30px] p-6 backdrop-blur-xl">
 
-                                    <th class="p-5 text-left">
-                                        Category
-                                    </th>
+                    {% for t in transactions[:5] %}
 
-                                    <th class="p-5 text-left">
-                                        Amount
-                                    </th>
+                    <!-- ITEM -->
 
-                                    <th class="p-5 text-left">
-                                        Type
-                                    </th>
+                    <div
+                        class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-4 border-b border-white/10">
 
-                                </tr>
+                        <!-- LEFT -->
 
-                            </thead>
+                        <div>
 
-                            <!-- BODY -->
+                            <h3 class="text-lg font-semibold">
 
-                            <tbody>
+                                {{ t.category }}
 
-                                {% for t in transactions %}
+                            </h3>
 
-                                <tr class="border-b border-white/10 hover:bg-white/5 transition duration-300">
+                            <p class="text-gray-400 text-sm">
 
-                                    <td class="p-5">
-                                        {{ t.date }}
-                                    </td>
+                                {{ t.date }}
 
-                                    <td class="p-5">
-                                        {{ t.category }}
-                                    </td>
+                            </p>
 
-                                    <td class="p-5">
-                                        ₹ {{ t.amount }}
-                                    </td>
+                        </div>
 
-                                    <td class="p-5">
+                        <!-- RIGHT -->
 
-                                        {% if t.type == "income" %}
+                        <div class="text-right">
 
-                                        <span class="text-green-400 font-bold">
+                            <p class="text-lg font-bold">
 
-                                            Income
+                                ₹ {{ t.amount }}
 
-                                        </span>
+                            </p>
 
-                                        {% else %}
+                            {% if t.type == 'income' %}
 
-                                        <span class="text-red-400 font-bold">
+                            <span class="text-green-400 text-sm font-semibold">
 
-                                            Expense
+                                Income
 
-                                        </span>
+                            </span>
 
-                                        {% endif %}
+                            {% else %}
 
-                                    </td>
+                            <span class="text-red-400 text-sm font-semibold">
 
-                                </tr>
+                                Expense
 
-                                {% endfor %}
+                            </span>
 
-                            </tbody>
+                            {% endif %}
 
-                        </table>
+                        </div>
 
                     </div>
+
+                    {% endfor %}
 
                 </div>
 
@@ -268,6 +579,8 @@
 
     </div>
 
-</body>
+    {% endif %}
 
-</html>
+</div>
+
+{% endblock %}

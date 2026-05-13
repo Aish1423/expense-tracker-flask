@@ -28,7 +28,7 @@
 
         <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-8 md:mb-12">
 
-            Transaction History
+            🕘Transaction History
 
         </h1>
         <!-- SEARCH BAR -->
@@ -105,6 +105,13 @@
                     <!-- BODY -->
 
                     <tbody>
+                        {% if transactions|length == 0 %}
+                        <tr>
+                            <td colspan="5" class="text-center p-10 text-gray-400 text-xl">
+                                No Transactions Found 🚫
+                            </td>
+                        </tr>
+                        {% endif %}
 
                         {% for t in transactions %}
 
@@ -162,12 +169,12 @@
 
                             <td class="p-3 sm:p-5">
 
-                                <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
+                                <div class="flex flex-col sm:flex-row gap-3">
 
                                     <!-- EDIT -->
 
-                                    <a href="/edit/{{ t.id }}"
-                                        class="bg-blue-500 hover:bg-blue-700 px-3 sm:px-4 py-2 text-sm sm:text-base rounded-xl text-center transition duration-300">
+                                    <a href="/edit/{{ t.id }}" onclick="showLoader()"
+                                        class="bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-xl text-center transition duration-300">
 
                                         Edit
 
@@ -175,20 +182,18 @@
 
                                     <!-- DELETE -->
 
-                                    <button onclick="deleteTransaction('{{ t.id }}')"
-                                        class="bg-red-500 hover:bg-red-700 px-3 sm:px-4 py-2 text-sm sm:text-base rounded-xl text-center transition duration-300">
+                                    <a href="/delete/{{ t.id }}" onclick="showLoader()"
+                                        class="bg-red-500 hover:bg-red-700 px-4 py-2 rounded-xl text-center transition duration-300">
 
                                         Delete
 
-                                    </button>
+                                    </a>
 
                                 </div>
 
                             </td>
 
-                        </tr>
-
-                        {% endfor %}
+                            {% endfor %}
 
                     </tbody>
 
